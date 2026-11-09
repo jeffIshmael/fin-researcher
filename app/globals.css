@@ -1,26 +1,82 @@
 @import "tailwindcss";
 
+/* Black, white and grays, with one luminous green accent used sparingly. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #ffffff;
+  --ink: #0a0a0a;
+  --mute: #6b6b6b;
+  --soft: #a3a3a3;
+  --fog: #f4f4f4;
+  --line: #e4e4e4;
+  --edge: #262626;
+  --accent: #3cff8f;
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-fog: var(--fog);
+  --color-line: var(--line);
+  --color-soft: var(--soft);
+  --color-edge: var(--edge);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+/* Rendered Markdown inside agent replies. Long addresses must wrap, never overflow. */
+.md { overflow-wrap: anywhere; word-break: break-word; min-width: 0; }
+.md > :first-child { margin-top: 0; }
+.md > :last-child { margin-bottom: 0; }
+.md p { margin: 0.6em 0; line-height: 1.55; }
+.md ul, .md ol { margin: 0.6em 0; padding-left: 1.25em; }
+.md ul { list-style: disc; }
+.md ol { list-style: decimal; }
+.md li { margin: 0.25em 0; line-height: 1.5; }
+.md strong { font-weight: 600; }
+.md a { text-decoration: underline; text-underline-offset: 2px; }
+.md code { font-family: var(--font-mono); font-size: 0.85em; background: var(--fog); padding: 0.1em 0.35em; border-radius: 4px; word-break: break-all; }
+.md pre { background: var(--fog); padding: 0.75em; border-radius: 8px; overflow-x: auto; }
+.md pre code { background: none; padding: 0; word-break: normal; }
+.md h1, .md h2, .md h3 { font-weight: 600; margin: 0.9em 0 0.3em; line-height: 1.3; }
+.md h1 { font-size: 1.1em; } .md h2 { font-size: 1.05em; } .md h3 { font-size: 1em; }
+.md table { border-collapse: collapse; font-size: 0.85em; width: 100%; }
+.md th, .md td { border: 1px solid var(--line); padding: 0.35em 0.5em; text-align: left; }
+.md th { background: var(--fog); font-weight: 600; }
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(60, 255, 143, 0.55); }
+  50% { box-shadow: 0 0 0 5px rgba(60, 255, 143, 0); }
+}
+.dot-glow { animation: glow 2s infinite; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.25s ease-out both; }
+
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0.2; }
+  40% { opacity: 1; }
+}
+.dot-blink { animation: blink 1.2s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
