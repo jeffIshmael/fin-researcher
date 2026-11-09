@@ -9,21 +9,21 @@ import { Glyph } from "@/components/chat/agent-avatar";
 function Orbit() {
   return (
     <div className="relative mx-auto h-56 w-56">
-      <div className="absolute inset-0 rounded-full bg-accent/10 blur-3xl" />
+      <div className="absolute inset-0 rounded-full bg-accent/15 blur-3xl" />
       <svg viewBox="0 0 240 240" className="relative h-full w-full" fill="none" aria-hidden>
-        <circle cx="120" cy="120" r="112" stroke="#244433" strokeWidth="1" />
+        <circle cx="120" cy="120" r="112" stroke="#e4e4e4" strokeWidth="1" />
         <g className="orbit-slow" style={{ transformOrigin: "120px 120px" }}>
-          <circle cx="120" cy="120" r="84" stroke="#9db0a2" strokeOpacity="0.5" strokeWidth="1" strokeDasharray="2 7" />
-          <circle cx="120" cy="36" r="6" fill="#fcff52" />
-          <circle cx="193" cy="162" r="4" fill="#f3efe0" />
+          <circle cx="120" cy="120" r="84" stroke="#6b6b6b" strokeOpacity="0.45" strokeWidth="1" strokeDasharray="2 7" />
+          <circle cx="120" cy="36" r="6" fill="#3cff8f" />
+          <circle cx="193" cy="162" r="4" fill="#0a0a0a" />
         </g>
         <g className="orbit-slower" style={{ transformOrigin: "120px 120px" }}>
-          <circle cx="120" cy="120" r="54" stroke="#f3efe0" strokeOpacity="0.35" strokeWidth="1" />
-          <circle cx="66" cy="120" r="5" fill="#fcff52" />
-          <circle cx="150" cy="167" r="3.5" fill="#9db0a2" />
+          <circle cx="120" cy="120" r="54" stroke="#0a0a0a" strokeOpacity="0.2" strokeWidth="1" />
+          <circle cx="66" cy="120" r="5" fill="#3cff8f" />
+          <circle cx="150" cy="167" r="3.5" fill="#a3a3a3" />
         </g>
       </svg>
-      <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-3xl bg-accent text-accent-ink shadow-[0_0_40px_rgba(252,255,82,0.35)]">
+      <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-3xl bg-accent text-accent-ink shadow-[0_0_40px_rgba(60,255,143,0.45)]">
         <Glyph className="h-8 w-8" />
       </span>
     </div>
@@ -50,7 +50,7 @@ export function OnboardingFlow({ onDone }: { onDone: () => void }) {
   const last = step === TOTAL - 1;
 
   return (
-    <div className="app-bg flex h-full flex-col overflow-y-auto pt-[env(safe-area-inset-top)] text-fg">
+    <div className="app-bg flex h-full flex-col overflow-y-auto bg-bg pt-[env(safe-area-inset-top)] text-fg">
       <div className="flex items-center justify-between px-6 pt-5">
         <div className="flex items-center gap-3" aria-label={`Step ${step + 1} of ${TOTAL}`}>
           <span className="text-sm text-muted">
@@ -77,7 +77,7 @@ export function OnboardingFlow({ onDone }: { onDone: () => void }) {
             <h1 className="mt-6 font-display text-[40px] font-semibold leading-[1.05] tracking-tight">{APP_NAME}</h1>
             <OnfraBadge className="mt-3 !text-xs" />
             <p className="mt-6 font-display text-2xl leading-snug">
-              Understand what happens <span className="text-accent">on-chain</span>. Just ask.
+              Understand what happens <span className="text-accent-deep">on-chain</span>. Just ask.
             </p>
             <p className="mx-auto mt-3 max-w-[300px] leading-relaxed text-muted">
               Explore wallet activity, follow the flow of funds, and make sense of transactions through a simple
@@ -92,7 +92,7 @@ export function OnboardingFlow({ onDone }: { onDone: () => void }) {
             <div className="mt-6 grid grid-cols-2 gap-3">
               {EXPLORE.map((item, i) => (
                 <div key={item.title} className="rounded-2xl border border-line bg-surface p-4">
-                  <span className="font-mono text-xs text-accent">0{i + 1}</span>
+                  <span className="font-mono text-xs text-accent-deep">0{i + 1}</span>
                   <p className="mt-3 font-display text-[17px] font-semibold leading-snug">{item.title}</p>
                   <p className="mt-1.5 text-xs leading-relaxed text-muted">{item.body}</p>
                 </div>
@@ -104,7 +104,7 @@ export function OnboardingFlow({ onDone }: { onDone: () => void }) {
         {step === 2 && (
           <div>
             <h2 className="font-display text-4xl font-semibold leading-[1.08] tracking-tight">
-              Your research starts with a <span className="text-accent">question.</span>
+              Your research starts with a <span className="text-accent-deep">question.</span>
             </h2>
             <p className="mt-4 leading-relaxed text-muted">
               Paste a public Celo wallet address or transaction hash into the chat, then ask what you want to
@@ -128,14 +128,14 @@ export function OnboardingFlow({ onDone }: { onDone: () => void }) {
         {step > 0 && (
           <button
             onClick={() => setStep((s) => s - 1)}
-            className="h-13 flex-1 rounded-full border border-line py-3.5 text-base font-medium active:bg-surface-2"
+            className="flex-1 rounded-full border border-line py-3.5 text-base font-medium active:bg-surface-2"
           >
             Back
           </button>
         )}
         <button
           onClick={() => (last ? onDone() : setStep((s) => s + 1))}
-          className="flex-[2] rounded-full bg-accent py-3.5 text-base font-semibold text-accent-ink shadow-[0_8px_30px_rgba(252,255,82,0.25)] active:scale-[0.98]"
+          className="flex-[2] rounded-full bg-accent py-3.5 text-base font-semibold text-accent-ink shadow-[0_8px_30px_rgba(60,255,143,0.3)] active:scale-[0.98]"
         >
           {last ? "Start chatting" : "Continue"} <span aria-hidden>→</span>
         </button>

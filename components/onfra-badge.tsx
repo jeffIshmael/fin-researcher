@@ -27,12 +27,12 @@ export function OnfraBadge({ className = "" }: { className?: string }) {
           href={ONFRA_LINK}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-accent underline-offset-2 hover:underline"
+          className="inline-flex items-center gap-1 text-accent-deep underline-offset-2 hover:underline"
         >
           {inner}
         </a>
       ) : (
-        <span className="inline-flex items-center gap-1 text-accent">{inner}</span>
+        <span className="inline-flex items-center gap-1 text-accent-deep">{inner}</span>
       )}
     </span>
   );

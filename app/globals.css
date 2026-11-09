@@ -10,6 +10,16 @@
   --line: #e4e4e4;
   --edge: #262626;
   --accent: #3cff8f;
+  /* Darker green for TEXT on white (the bright accent is too faint as text). */
+  --accent-deep: #067a3c;
+
+  /* Aliases used by the components. */
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --muted: var(--mute);
+  --surface: var(--fog);
+  --surface-2: #ececec;
+  --accent-ink: #0a0a0a; /* text that sits ON the bright green */
   color-scheme: light;
 }
 
@@ -22,8 +32,18 @@
   --color-soft: var(--soft);
   --color-edge: var(--edge);
   --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-accent-ink: var(--accent-ink);
+
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
 }
 
 html,
@@ -37,6 +57,13 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   overscroll-behavior: none;
+}
+
+/* Page background: white with a faint green glow at the top. */
+.app-bg {
+  background:
+    radial-gradient(120% 55% at 50% 0%, rgba(60, 255, 143, 0.12), transparent 65%),
+    var(--paper);
 }
 
 /* Rendered Markdown inside agent replies. Long addresses must wrap, never overflow. */
@@ -76,6 +103,12 @@ body {
   40% { opacity: 1; }
 }
 .dot-blink { animation: blink 1.2s infinite; }
+
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+.orbit-slow { animation: orbit 40s linear infinite; }
+.orbit-slower { animation: orbit 65s linear infinite reverse; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
